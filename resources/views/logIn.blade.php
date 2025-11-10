@@ -4,10 +4,11 @@
         <title>Log In</title>
         <meta charset='UTF-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1'>        
-        <link rel="stylesheet" href="{{url('css/Home.css')}}">
+        
+        @vite('resources/css/app.css')
     </head>
     <body>
-        <div class='CuerpoPagina'>
+        <div class='CuerpoPagina loginPage'>
             <div class='WrapDeColumnas'>
                 <div class='ColumnaIzquierda'>
                 </div>
@@ -25,7 +26,7 @@
                                     <input name='Password' id='Password' type='Password' />
                                     <p></p>
                                     <!--button type='submit'><a href='Views/PerfilPP.php'>Validar</a></button-->
-                                    <a href="/PerfilPP.php"><button type="button">Ingreso</button></a>
+                                    <a href="/PerfilPP.php"><button class="">Ingreso</button></a>
                                 </form>
                     </div>
                 </div>    

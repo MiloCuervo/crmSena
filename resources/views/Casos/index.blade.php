@@ -14,7 +14,7 @@
                     <span>
                         <span class="LogoDeBoton">
                             <ion-icon name="create-outline"></ion-icon></span>
-                        <span class="TextoDeBoton">CrearCaso</span>
+                        <span class="TextoDeBoton">Crear Caso</span>
                     </span>
                 </button>
             </li>
