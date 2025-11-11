@@ -1,0 +1,114 @@
+
+/* Estilos para la página de LogIn */
+.CuerpoPagina {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(90deg,#349a00 20px,rgb(0 188 125));
+}
+
+.WrapDeColumnas {
+    display: flex;
+    flex: 1;
+    width: 100%;
+}
+
+.ColumnaIzquierda,
+.ColumnaDerecha {
+    flex: 1;
+    padding: 20px;
+    color: transparent;
+}
+
+.ColumnaCentral {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+.InternoUsuario {
+    background: white;
+    padding: 50px 60px;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.418);
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+}
+
+.InternoUsuario img {
+    margin-bottom: 20px;
+}
+
+.InternoUsuario h2 {
+    color: #2d3748;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.SinCuenta {
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.InternoUsuario form {
+    text-align: left;
+}
+
+.InternoUsuario label {
+    display: block;
+    color: #2d3748;
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.InternoUsuario input[type="text"],
+.InternoUsuario input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #0c0e11;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.InternoUsuario input[type="text"]:focus,
+.InternoUsuario input[type="password"]:focus {
+    outline: none;
+    border-color: #39A900;
+    box-shadow: 0 0 0 3px rgba(57, 169, 0, 0.1);
+}
+
+.InternoUsuario button[type="button"] {
+    width: 100%;
+    padding: 14px;
+    color: rgb(14, 11, 11);
+    border: none;
+    border-radius: 6px;
+    background: linear-gradient(90deg,rgb(0 188 125),rgb(0 166 62));
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+}
+
+.InternoUsuario button[type="button"]:hover {
+    background: linear-gradient(90deg,rgb(0 166 62),rgb(0 188 125));
+    box-shadow: 0 4px 12px rgba(194, 203, 189, 0.3);
+    transform: translateY(-2px);
+
+}
+
+.InternoUsuario button[type="button"]:active {
+    transform: translateY(0);
+}

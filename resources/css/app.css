@@ -1,11 +1,61 @@
-@import 'tailwindcss';
-
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+body{
+  background:ghostwhite;
+  font-family: 'times new roman', serif;
+}
+
+nav {
+  position: fixed; /* Fija la barra a la ventana */
+  width: 100%; 
+  float: left;
+  align-items: center;
+  align-content: center;
+  height: 43px;
+  background-color: #2d8400;
+}
+
+nav ul {
+  list-style: none;
+  overflow: hidden;
+  padding: 0 10px 0 0;
+}
+
+nav ul li {
+  float: left;
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 16px;
+  margin-inline-start: 0;
+}
+
+nav ul li a {
+  display: block;
+  padding: 10px;
+  color: #fff;
+  text-decoration: none;
+}
+nav ul li:hover {
+  background: #034c03;
+}
+
+.BoxPerfil{
+  float: right;
+
+}
+
+
+.table{
+  width: 50% !important; 
+  padding-top: 150px !important;
+  text-indent: 10px;
+  border-collapse: separate;
+
+}
+
+
+
+
