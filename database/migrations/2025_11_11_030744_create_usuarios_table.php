@@ -11,129 +11,112 @@ return new class extends Migration
      */
     public function up(): void
     {
-        # CREACION DE TABLAS REFERENTES A USUARIOS
+        // CREACION DE TABLAS REFERENTES A USUARIOS
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->primary('id');
+            $table->id();
             $table->string('nombre', 25);
-            $table->string('contrasena', 15)->nullable(false);
-            $table->string('email')->unique()->nullable(false);
-            $table->date('fecha_creacion')->nullable(false);
-            $table->$table->timestamps('ultimo_login');
-            $table->foreing('rol')->references('id_usuario_rol')->on('usuarios_rol')->OnDelete('cascade');
-        });
-        schema::create('configuracion_usuarios',function (Blueprint $table) {
-            $table->primary('id');
-            $table->foreign('id_usuario')
-            ->references('id')
-            ->on('usuario')
-            ->OnDelete('cascade');
-            $table->string('preferencia_alerta')->nullable(false);
-            $table->enum('configuracion_informe',['diaria','semanal','mensual'])->nullable(false);
-        });
-        schema::create('usuarios_rol', function (Blueprint $table) {
-            $table->primary('id');
-            $table->foreign('id_usuario')
-                ->references('id')
-                ->on('usuario')
-                ->OnDelete('cascade');
-            $table->foreign('id_rol')
-                ->references('id')
-                ->on('rol')
-                ->OnDelete('cascade');
-        });
-        schema::create('rol', function (Blueprint $table) {
-            $table->primary('id');
-            $table->string('nombre')->nullable(false);
-            $table->text('descripcion')->nullable(false);
-        });
-        schema::create('sesiones', function (Blueprint $table) {
-            $table->primary('id');
-            $table->foreign('id_usuario')
-                  ->references('id')
-                  ->on('usuario')
-                  ->OnDelete('cascade');
-            $table->timestamp('fecha_inicio')->nullable(false);
+            $table->string('contrasena', 255);
+            $table->string('email')->unique();
+            $table->date('fecha_creacion');
+            $table->timestamp('ultimo_login')->nullable();
+            $table->timestamps();
         });
 
+        // Roles
+        Schema::create('rol', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre');
+            $table->text('descripcion')->nullable();
+            $table->timestamps();
+        });
 
-        # CREACION DE TABLAS REFERENTES A CASOS Y SEGUIMIENTOS
-        schema::create('procesos_organizacionales', function (Blueprint $table) {
-            $table->primary('id_proceso');
+        // Configuracion por usuario
+        Schema::create('configuracion_usuarios', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('usuarios_id')->constrained('usuarios')->cascadeOnDelete();
+            $table->string('preferencia_alerta');
+            $table->enum('configuracion_informe', ['diaria','semanal','mensual']);
+            $table->timestamps();
+        });
+
+        // Pivot usuarios <-> rol
+        Schema::create('usuarios_rol', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('usuarios_id')->constrained('usuarios')->cascadeOnDelete();
+            $table->foreignId('id_rol')->constrained('rol')->cascadeOnDelete();
+            $table->timestamps();
+        });
+
+        // Sesiones
+        Schema::create('sesiones', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('usuarios_id')->constrained('usuarios')->cascadeOnDelete();
+            $table->timestamp('fecha_inicio');
+            $table->timestamps();
+        });
+
+        // CREACION DE TABLAS REFERENTES A CASOS Y SEGUIMIENTOS
+        Schema::create('procesos_organizacionales', function (Blueprint $table) {
+            $table->id();
             $table->string('nombre', 25);
             $table->text('descripcion')->nullable();
-            $table->date('fecha_creacion')->nullable(false);
-            $table->string('activo');
+            $table->date('fecha_creacion');
+            $table->boolean('activo')->default(true);
+            $table->timestamps();
         });
-        schema::create('contactos', function (Blueprint $table) {
-            $table->primary('id_contacto');
-            $table->foreign('id_usuario')
-            ->references('id')
-            ->on('usuario')
-            ->OnDelete('cascade');
-            $table->string('tipo_contacto')->nullable(false);
-            $table->string('detalle_contacto')->nullable(false);
+
+        Schema::create('contactos', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('usuarios_id')->constrained('usuarios')->cascadeOnDelete();
+            $table->string('tipo_contacto');
+            $table->string('detalle_contacto');
+            $table->timestamps();
         });
-        schema::create('casos', function (Blueprint $table) {
-            $table->primary('id_caso');
-            $table->foreign('id_usuario')
-                  ->references('id')
-                  ->on('usuario')
-                  ->OnDelete('cascade');
-            $table->foreign('id_proceso')
-                  ->references('id_proceso')
-                  ->on('procesos_organizacionales')
-                  ->OnDelete('cascade');
-            $table->string('titulo')->nullable(false);
-            $table->text('descripcion')->nullable(false);
-            $table->enum('estado',['atendido','pendiente','no_atendido'])->nullable(false);
-            $table->dates('fecha_creacion')->nullable(false);
+
+        Schema::create('casos', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('usuarios_id')->constrained('usuarios')->cascadeOnDelete();
+            $table->foreignId('procesos_organizacionales_id')->constrained('procesos_organizacionales')->cascadeOnDelete();
+            $table->string('titulo');
+            $table->text('descripcion');
+            $table->enum('estado', ['atendido','pendiente','no_atendido']);
+            $table->date('fecha_creacion');
             $table->date('fecha_cierre')->nullable();
+            $table->timestamps();
         });
-        schema::create('seguimientos', function (Blueprint $table) {
-            $table->primary('id');
-            $table->foreign('id_caso')
-                  ->references('id_caso')
-                  ->on('casos')
-                  ->OnDelete('cascade');
-            $table->foreign('id_usuario')
-                  ->references('id')
-                  ->on('usuario')
-                  ->OnDelete('cascade');
-            $table->date('fecha_seguimiento')->nullable(false);
+
+        Schema::create('seguimientos', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('casos_id')->constrained('casos')->cascadeOnDelete();
+            $table->foreignId('usuarios_id')->constrained('usuarios')->cascadeOnDelete();
+            $table->date('fecha_seguimiento');
             $table->text('observacion')->nullable();
+            $table->timestamps();
         });
 
-
-        # CREACION DE TABLAS REFERENTES A PROCESOS DOCUMENTALES
-        schema::create('informes',function (Blueprint $table){
-            $table->primary('id');
-            $table->foreign('id_usuario')
-                ->references('id')
-                ->on('usuario')
-                ->OnDelete('cascade');
-            $table->timestamp('fecha_generacion')->nullable(false);
-            $table->texto('contenido')->nullable(false);
-            $table->enum('tipo',['diaria','semanal','mensual'])->nullable(false);
+        // CREACION DE TABLAS REFERENTES A PROCESOS DOCUMENTALES
+        Schema::create('informes', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('usuarios_id')->constrained('usuarios')->cascadeOnDelete();
+            $table->timestamp('fecha_generacion');
+            $table->text('contenido');
+            $table->enum('tipo', ['diaria','semanal','mensual']);
+            $table->timestamps();
         });
+
         Schema::create('involucrados', function (Blueprint $table) {
-            $table->primary('id');
-            $table->foreign('id_administrador')
-                  ->references('id')
-                  ->on('usuario')
-                  ->OnDelete('cascade');
-            $table->foreign('id_comisionado')
-                  ->references('id')
-                  ->on('usuario')
-                  ->OnDelete('cascade');
+            $table->id();
+            $table->foreignId('id_administrador')->constrained('usuarios')->cascadeOnDelete();
+            $table->foreignId('id_comisionado')->constrained('usuarios')->cascadeOnDelete();
+            $table->timestamps();
         });
-        schema::create('monitoreos', function (Blueprint $table) {
-            $table->primary('id');
-            $table->foreign('id_involucrados')
-                  ->references('id')
-                  ->on('involucrados')
-                  ->OnDelete('cascade');
-            $table->timestamp('fecha_monitoreo')->nullable(false);
-            $table->text('detalles')->nullable(false);
+
+        Schema::create('monitoreos', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_involucrados')->constrained('involucrados')->cascadeOnDelete();
+            $table->timestamp('fecha_monitoreo');
+            $table->text('detalles');
+            $table->timestamps();
         });
 
     }
@@ -141,20 +124,19 @@ return new class extends Migration
      * Reverse the migrations.
      */
     public function down(): void
-    { # EKIMINACION DE TABLAS REFERENTES A USUARIOS
-        Schema::dropIfExists('usuarios');
-        Schema::dropIfExists('configuracion_usuarios');
-        Schema::dropIfExists('usuarios_rol');
-        Schema::dropIfExists('rol');
+    {
+        
+        Schema::dropIfExists('monitoreos');
+        Schema::dropIfExists('involucrados');
+        Schema::dropIfExists('informes');
+        Schema::dropIfExists('seguimientos');
+        Schema::dropIfExists('casos');
+        Schema::dropIfExists('contactos');
+        Schema::dropIfExists('procesos_organizacionales');
         Schema::dropIfExists('sesiones');
-        # ELIMINACION DE TABLAS REFERENTES A DOCUMENTOS
-        Schema::dropIfExists('informes'); 
-        schema::dropIfExists('involucrados');
-        schema::dropIfExists('monitoreos');
-        # ELIMINACION DE TABLAS REFERENTES A CASOS Y SEGUIMIENTOS
-        schema::dropIfExists('procesos_organizacionales');
-        schema::dropIfExists('contactos');
-        schema::dropIfExists('casos');
-        schema::dropIfExists('seguimientos');
+        Schema::dropIfExists('usuarios_rol');
+        Schema::dropIfExists('configuracion_usuarios');
+        Schema::dropIfExists('rol');
+        Schema::dropIfExists('usuarios');
     }
 };

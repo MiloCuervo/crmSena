@@ -5,7 +5,7 @@
         <meta charset='UTF-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-        <link rel='stylesheet' href='{{url("css/logIn.css")}}'>
+        <link rel='stylesheet' href='/css/logIn.css'>
     </head>
     <body>
         <div class='CuerpoPagina loginPage'>
@@ -24,6 +24,7 @@
                                     <p></p>
                                     <label>Password</label><p></p>
                                     <input name='Password' id='Password' type='Password' />
+                            
                                     <p></p>
                                     <!--button type='submit'><a href='Views/PerfilPP.php'>Validar</a></button-->
                                     <a href="/perfil.blade.php"><button class="">Iniciar sesion</button></a>
