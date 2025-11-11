@@ -3,17 +3,23 @@
     <head>
         <title>Log In</title>
         <meta charset='UTF-8'>
+<<<<<<< HEAD
         <meta name='viewport' content='width=device-width, initial-scale=1'>        
         <link rel="stylesheet" href="css/logIn.css">
+=======
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link rel='stylesheet' href='/css/logIn.css'>
+>>>>>>> d3936972e46be39a5823408d95baae53c8c3b4d0
     </head>
     <body>
-        <div class='CuerpoPagina'>
+        <div class='CuerpoPagina loginPage'>
             <div class='WrapDeColumnas'>
                 <div class='ColumnaIzquierda'>
                 </div>
                 <div class="ColumnaCentral">
                     <div class="InternoUsuario">
-                        <img src="img/logoSena1.png" alt="logoSena1" width=212 height=117>
+                        <img src="#" alt="logoSena1" width=212 height=117>
                         <h2>INICIO DE SESION</h2>
                         <P class="SinCuenta">No tienes Usuario? Escribele a tu administrador</P>
                                 <form action="action.php" method="post" name="FormularioLogin">
@@ -23,9 +29,10 @@
                                     <p></p>
                                     <label>Password</label><p></p>
                                     <input name='Password' id='Password' type='Password' />
+                            
                                     <p></p>
                                     <!--button type='submit'><a href='Views/PerfilPP.php'>Validar</a></button-->
-                                    <a href="/PerfilPP.php"><button type="button">Ingreso</button></a>
+                                    <a href="/perfil.blade.php"><button class="">Iniciar sesion</button></a>
                                 </form>
                     </div>
                 </div>    
