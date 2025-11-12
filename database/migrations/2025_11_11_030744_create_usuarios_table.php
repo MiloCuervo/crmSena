@@ -15,9 +15,8 @@ return new class extends Migration
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
             $table->string('nombre', 25);
-            $table->string('contrasena', 255);
             $table->string('email')->unique();
-            $table->date('fecha_creacion');
+            $table->string('contrasena', 255);
             $table->timestamp('ultimo_login')->nullable();
             $table->timestamps();
         });
@@ -43,7 +42,7 @@ return new class extends Migration
         Schema::create('usuarios_rol', function (Blueprint $table) {
             $table->id();
             $table->foreignId('usuarios_id')->constrained('usuarios')->cascadeOnDelete();
-            $table->foreignId('id_rol')->constrained('rol')->cascadeOnDelete();
+            $table->foreignId('rol_id')->constrained('rol')->cascadeOnDelete();
             $table->timestamps();
         });
 
@@ -60,7 +59,6 @@ return new class extends Migration
             $table->id();
             $table->string('nombre', 25);
             $table->text('descripcion')->nullable();
-            $table->date('fecha_creacion');
             $table->boolean('activo')->default(true);
             $table->timestamps();
         });
@@ -80,7 +78,6 @@ return new class extends Migration
             $table->string('titulo');
             $table->text('descripcion');
             $table->enum('estado', ['atendido','pendiente','no_atendido']);
-            $table->date('fecha_creacion');
             $table->date('fecha_cierre')->nullable();
             $table->timestamps();
         });
@@ -89,7 +86,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('casos_id')->constrained('casos')->cascadeOnDelete();
             $table->foreignId('usuarios_id')->constrained('usuarios')->cascadeOnDelete();
-            $table->date('fecha_seguimiento');
             $table->text('observacion')->nullable();
             $table->timestamps();
         });
@@ -98,7 +94,6 @@ return new class extends Migration
         Schema::create('informes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('usuarios_id')->constrained('usuarios')->cascadeOnDelete();
-            $table->timestamp('fecha_generacion');
             $table->text('contenido');
             $table->enum('tipo', ['diaria','semanal','mensual']);
             $table->timestamps();
@@ -114,7 +109,6 @@ return new class extends Migration
         Schema::create('monitoreos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_involucrados')->constrained('involucrados')->cascadeOnDelete();
-            $table->timestamp('fecha_monitoreo');
             $table->text('detalles');
             $table->timestamps();
         });
