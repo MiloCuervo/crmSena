@@ -1,16 +1,4 @@
-<<<<<<< HEAD
-@import 'tailwindcss';
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
-
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
-}
-=======
 * {
     margin: 0;
     padding: 0;
@@ -23,7 +11,7 @@ body{
 }
 
 nav {
-  position: fixed; /* Fija la barra a la ventana */
+  position: sticky; /* Fija la barra a la ventana */
   width: 100%; 
   float: left;
   align-items: center;
@@ -68,8 +56,3 @@ nav ul li:hover {
   border-collapse: separate;
 
 }
-
-
-
-
->>>>>>> d3936972e46be39a5823408d95baae53c8c3b4d0

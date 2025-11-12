@@ -10,4 +10,6 @@ class Casos extends Model
 {
     use HasFactory;
     protected $table = 'casos';//tabla a la que se conecta el modelo
+
+    
 }
