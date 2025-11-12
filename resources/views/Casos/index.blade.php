@@ -1,5 +1,5 @@
-<?php include 'header.php'; ?>
-
+@extends('layouts.layout')
+@section('content')
 <div class='BarraComandos'>
    <div class="navegacion">
         <button id="ReturnButton"  title="Retroceder" type="button">
@@ -48,6 +48,5 @@
         </ul>
    </div>
 </div>
-
-<?php include 'footer.php'; ?>
+@endsection
 
