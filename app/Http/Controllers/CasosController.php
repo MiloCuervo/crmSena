@@ -10,8 +10,8 @@ class CasosController extends Controller
 {
     public function __invoke()
     {
-       $casos = Casos::all();
-       return view('casos.index',compact('casos'));
+        $casos = Casos::all();
+        return view('casos.index', compact('casos'));
     }
 
     public function create()
@@ -23,6 +23,6 @@ class CasosController extends Controller
     {
         $casos = Casos::find($caso_id);
 
-        return view( 'Casos.detalle',compact('casos'));
+        return view('Casos.crear', compact('casos'));
     }
 }

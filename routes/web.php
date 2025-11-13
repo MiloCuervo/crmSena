@@ -14,6 +14,7 @@ Route::get('/perfil', function () {
 
 
 //Rutas sobre Los Casos {Index, Mostrar,crear, editar, eliminar}
-Route::get('/Casos', [CasosController::class, '__invoke']);
-Route::get('/Casos/{caso_id}', [CasosController::class, 'Mostrar']);
-Route::get('/CrearCaso', [CasosController::class, 'Crear']);
+Route::get('/casos', [CasosController::class, '__invoke']);
+Route::get('/casos/{caso_id}', [CasosController::class, 'Mostrar']);
+Route::get('/crearCaso', [CasosController::class, 'Crear']);
+Route::post('/casos', [CasosController::class, '']);

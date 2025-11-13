@@ -27,7 +27,7 @@
                             <input name='Password' id='Password' type='Password' />
                     
                             <p></p>
-                            <a href="/perfil.blade.php"><button class="BtnLogin" type="button">Iniciar sesion</button></a>
+                            <a href="/casos"><button class="BtnLogin" type="button">Iniciar sesion</button></a>
                         </form>
                     </div>
                 </div>

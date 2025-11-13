@@ -65,9 +65,10 @@ return new class extends Migration
 
         Schema::create('contactos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('usuarios_id')->constrained('usuarios')->cascadeOnDelete();
-            $table->string('tipo_contacto');
-            $table->string('detalle_contacto');
+            $table->string('nombre', 50);
+            $table->string('email')->unique();
+            $table->string('telefono', 15)->nullable();
+            $table->string('cargo', 50)->nullable();
             $table->timestamps();
         });
 
@@ -77,6 +78,7 @@ return new class extends Migration
             $table->foreignId('procesos_organizacionales_id')->constrained('procesos_organizacionales')->cascadeOnDelete();
             $table->string('titulo');
             $table->text('descripcion');
+            $table->foreignId('contactos_id')->constrained('contactos')->cascadeOnDelete();
             $table->enum('estado', ['atendido','pendiente','no_atendido']);
             $table->date('fecha_cierre')->nullable();
             $table->timestamps();
