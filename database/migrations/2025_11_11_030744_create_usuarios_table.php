@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('contrasena', 255);
             $table->timestamp('ultimo_login')->nullable();
+            $table->boolean('rol')->default(false); // false: usuario, true: admin
             $table->timestamps();
         });
 
@@ -33,16 +34,15 @@ return new class extends Migration
         Schema::create('configuracion_usuarios', function (Blueprint $table) {
             $table->id();
             $table->foreignId('usuarios_id')->constrained('usuarios')->cascadeOnDelete();
-            $table->string('preferencia_alerta');
-            $table->enum('configuracion_informe', ['diaria','semanal','mensual']);
+            $table->enum('configuracion_informe', ['diaria','semanal','mensual'])->default('Mensual');
             $table->timestamps();
         });
 
         // Pivot usuarios <-> rol
         Schema::create('usuarios_rol', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('usuarios_id')->constrained('usuarios')->cascadeOnDelete();
             $table->foreignId('rol_id')->constrained('rol')->cascadeOnDelete();
+            $table->primary(['usuarios_id', 'rol_id']); // PK compuesta  
             $table->timestamps();
         });
 
@@ -76,10 +76,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('usuarios_id')->constrained('usuarios')->cascadeOnDelete();
             $table->foreignId('procesos_organizacionales_id')->constrained('procesos_organizacionales')->cascadeOnDelete();
-            $table->string('titulo');
+            $table->unsignedBigInteger('Radicado')->unique();
             $table->text('descripcion');
             $table->foreignId('contactos_id')->constrained('contactos')->cascadeOnDelete();
-            $table->enum('estado', ['atendido','pendiente','no_atendido']);
+            $table->enum('estado', ['atendido','pendiente','no_atendido','cerrado'])->default('pendiente');
             $table->date('fecha_cierre')->nullable();
             $table->timestamps();
         });
@@ -102,9 +102,9 @@ return new class extends Migration
         });
 
         Schema::create('involucrados', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('id_administrador')->constrained('usuarios')->cascadeOnDelete();
             $table->foreignId('id_comisionado')->constrained('usuarios')->cascadeOnDelete();
+            $table->primary(['id_administrador', 'id_comisionado']); // PK compuesta
             $table->timestamps();
         });
 
